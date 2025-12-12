@@ -16,6 +16,13 @@
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Pixplore - Discover Beautiful Photos" />
     <meta name="twitter:description" content="Explore millions of free high-resolution photos from Unsplash." />
+
+    <!-- Redirect /pixplore/ to /pixplore/#/ -->
+    <script>
+      if (!location.hash) {
+        location.replace(location.href + "#/");
+      }
+    </script>
     <script type="module" crossorigin src="/pixplore/assets/index-DcMTXvYE.js"></script>
     <link rel="stylesheet" crossorigin href="/pixplore/assets/index-Ccjn4qMf.css">
   </head>
