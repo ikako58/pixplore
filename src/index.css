@@ -1,0 +1,221 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Pixplore Design System
+   A dark, photo-focused aesthetic with warm amber accents
+   All colors in HSL format
+*/
+
+@layer base {
+  :root {
+    /* Light theme - clean whites with warm accents */
+    --background: 0 0% 98%;
+    --foreground: 240 10% 10%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 10%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 10%;
+
+    /* Warm amber primary */
+    --primary: 35 92% 50%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 240 5% 94%;
+    --secondary-foreground: 240 10% 20%;
+
+    --muted: 240 5% 92%;
+    --muted-foreground: 240 5% 45%;
+
+    /* Slightly warmer accent */
+    --accent: 30 80% 55%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 240 6% 90%;
+    --input: 240 6% 90%;
+    --ring: 35 92% 50%;
+
+    --radius: 0.75rem;
+
+    /* Custom tokens for photo gallery */
+    --overlay-gradient: linear-gradient(to top, hsl(0 0% 0% / 0.7) 0%, transparent 100%);
+    --card-shadow: 0 4px 20px hsl(0 0% 0% / 0.08);
+    --glow-primary: 0 0 40px hsl(35 92% 50% / 0.3);
+  }
+
+  /* Dark theme - rich blacks to make photos pop */
+  .dark {
+    --background: 240 10% 6%;
+    --foreground: 0 0% 95%;
+
+    --card: 240 10% 9%;
+    --card-foreground: 0 0% 95%;
+
+    --popover: 240 10% 9%;
+    --popover-foreground: 0 0% 95%;
+
+    /* Warm amber primary */
+    --primary: 35 92% 55%;
+    --primary-foreground: 240 10% 6%;
+
+    --secondary: 240 5% 16%;
+    --secondary-foreground: 0 0% 90%;
+
+    --muted: 240 5% 18%;
+    --muted-foreground: 240 5% 60%;
+
+    --accent: 30 80% 60%;
+    --accent-foreground: 240 10% 6%;
+
+    --destructive: 0 62% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 240 5% 18%;
+    --input: 240 5% 18%;
+    --ring: 35 92% 55%;
+
+    --overlay-gradient: linear-gradient(to top, hsl(0 0% 0% / 0.85) 0%, transparent 100%);
+    --card-shadow: 0 4px 30px hsl(0 0% 0% / 0.4);
+    --glow-primary: 0 0 60px hsl(35 92% 55% / 0.25);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+}
+
+@layer components {
+  /* Search input styling */
+  .search-input {
+    @apply h-12 pl-12 pr-12 rounded-full bg-muted/50 border-transparent 
+           focus:border-primary focus:ring-2 focus:ring-primary/20
+           placeholder:text-muted-foreground transition-all duration-200;
+  }
+
+  /* Photo grid responsive layout */
+  .photo-grid {
+    @apply grid gap-4;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  }
+
+  @screen sm {
+    .photo-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @screen lg {
+    .photo-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @screen xl {
+    .photo-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  /* Photo card with hover effects */
+  .photo-card {
+    @apply relative overflow-hidden;
+    box-shadow: var(--card-shadow);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
+                box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .photo-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px hsl(0 0% 0% / 0.15);
+  }
+
+  .dark .photo-card:hover {
+    box-shadow: 0 20px 50px hsl(0 0% 0% / 0.5);
+  }
+
+  /* Photo overlay gradient */
+  .photo-overlay {
+    @apply absolute inset-0 opacity-0 transition-opacity duration-300;
+    background: var(--overlay-gradient);
+  }
+
+  .photo-card:hover .photo-overlay,
+  .photo-card:focus-within .photo-overlay {
+    @apply opacity-100;
+  }
+
+  /* Modal styling */
+  .modal-content {
+    @apply max-w-5xl w-[95vw] max-h-[95vh] p-6 bg-card border-border overflow-hidden;
+  }
+
+  /* Page container */
+  .page-container {
+    @apply min-h-screen bg-background;
+  }
+
+  /* Results info badge */
+  .results-badge {
+    @apply inline-flex items-center gap-2 px-4 py-2 rounded-full 
+           bg-primary/10 text-primary text-sm font-medium;
+  }
+}
+
+@layer utilities {
+  /* Smooth image loading animation */
+  .image-fade-in {
+    animation: fadeIn 0.5s ease-out forwards;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: scale(1.02);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  /* Stagger animation for grid items */
+  .stagger-animation {
+    animation: slideUp 0.4s ease-out forwards;
+    animation-delay: calc(var(--stagger-index, 0) * 50ms);
+    opacity: 0;
+  }
+
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Focus visible styling */
+  .focus-ring {
+    @apply focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background;
+  }
+}
