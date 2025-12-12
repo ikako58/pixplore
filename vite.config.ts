@@ -4,13 +4,12 @@ import path from "path";
 
 // https://vitejs.dev/config/
 export default defineConfig(() => ({
+  base: "/pixplore/", // <--- Add this line
   server: {
     host: "::",
     port: 8080,
   },
-
   plugins: [react()],
-
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "src"),
